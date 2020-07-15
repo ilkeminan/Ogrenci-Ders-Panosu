@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //Ogrenci ana sayfasi ve gerceklestirilebilecek islemler
+}
+<link href="~/Content/OgrenciNotlariniGoruntule.css" rel="stylesheet" type="text/css" />
+<button type="button" class="btn btn-block" onclick="location.href='@Url.Action("OgrenciBilgisi", "Home", new { id = ViewBag.ogrenciNo })'">Bilgileri Goruntule</button>
+<button type="button" class="btn btn-block" onclick="location.href='@Url.Action("OgrenciNotuListele", "Home", new { id = ViewBag.ogrenciNo })'">Not Listele</button>
+<button type="button" class="btn btn-block" onclick="location.href='@Url.Action("DersSecimi", "Home", new { id = ViewBag.ogrenciNo })'">Ders Seçimi</button>

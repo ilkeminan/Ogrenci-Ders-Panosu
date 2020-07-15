@@ -1,0 +1,26 @@
+﻿html {
+    background-color: #D3DBDE !important;
+}
+body {
+    margin-top: 100px;
+    background-color: #D3DBDE !important;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    max-width: 300px;
+    text-align: center;
+    margin: auto;
+    background-color: #E0D987;
+    border-radius: 10%;
+    padding:10px;
+}
+
+    .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+.container {
+    padding: 2px 16px;
+}

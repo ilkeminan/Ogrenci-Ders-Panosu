@@ -1,0 +1,17 @@
+﻿body {
+    margin-top: 80px;
+    background-color: #D3DBDE !important;
+}
+
+html {
+    background-color: #D3DBDE !important;
+}
+
+.tabloDiv {
+    background-color: #E0D987 !important;
+    margin: 20px;
+    border: double;
+    border-width: 4px;
+    border-color: #274047;
+    padding: 20px;
+}

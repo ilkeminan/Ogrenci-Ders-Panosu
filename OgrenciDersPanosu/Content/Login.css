@@ -1,0 +1,34 @@
+﻿html {
+    background-color: #274047 !important;
+}
+
+body {
+    padding-top: 100px;
+    background-color: #274047 !important;
+}
+
+.form-group {
+    width: 200px;
+}
+
+.form {
+    border-radius: 10%;
+    background-color: #E0D987;
+    padding: 20px;
+    height: 370px;
+    width: 250px;
+    margin-left: 540px;
+    margin-top: 50px;
+}
+
+.form-label1 {
+    text-emphasis-color:aqua;
+}
+
+.btn-custom3 {
+    color: #D9B310;
+    background-color: #1D2731;
+}
+.btn-custom3:hover{
+    opacity:0.8;
+}

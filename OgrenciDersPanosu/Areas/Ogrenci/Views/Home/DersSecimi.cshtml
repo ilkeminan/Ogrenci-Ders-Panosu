@@ -1,0 +1,38 @@
+﻿@model IEnumerable<OgrenciDersPanosu.Models.Ders>
+@using OgrenciDersPanosu.Models;
+@{
+    ViewBag.Title = "DersSecimi";
+}
+<link href="~/Content/DersSecimi.css" rel="stylesheet" type="text/css" />
+@{
+    List<Ders> mevcut = ViewBag.mevcut;
+}
+<div class="tabloDiv">
+    <table class="table table-striped">
+        <tr>
+            <th>DersId</th>
+            <th>DersAdı</th>
+            <th></th>
+        </tr>
+        @foreach (Ders aDers in Model)
+        {
+            //Ogrenci tarafindan secilen dersi ekleme veya silme islemleri
+            <tr>
+                <td>@aDers.DersId</td>
+                <td>@aDers.DersAdi</td>
+                <td>
+                    @if (mevcut.Find(i => i.DersId == aDers.DersId) == null)
+                    {
+                        @Html.ActionLink("Ekle", "SecilenDers", new { dersId = aDers.DersId }, new { @class = "btn btn-custom5 btn-sm" })
+                        <button class="btn btn-custom6 btn-sm" disabled>Sil</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-custom4 btn-sm" disabled>Ekle</button>
+                        @Html.ActionLink("Sil", "SilinecekDers", new { dersId = aDers.DersId }, new { @class = "btn btn-customLogout btn-sm" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>

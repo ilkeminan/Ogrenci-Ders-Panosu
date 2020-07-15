@@ -1,0 +1,159 @@
+﻿body {
+    background-color: #D3DBDE !important;
+}
+
+html {
+    background-color: #D3DBDE !important;
+}
+
+.post {
+    top: 70px;
+    left: 240px;
+    position: absolute;
+    width: 600px;
+    height: 210px;
+}
+
+#uploadpos {
+    left: 0px;
+    top: 165px;
+}
+
+#upload_text {
+    left: 30px;
+    top: 165px;
+    color: blue;
+}
+
+#postpos {
+    left: 515px;
+    top: 123px;
+    width: 85px;
+    height: 30px;
+}
+
+#postbox {
+    height: 105px;
+    outline: none;
+    border: white;
+    background: #e9f0f2;
+    width: 580px;
+}
+
+#postboxpos {
+    top: 45px;
+    left: 10px;
+    height: 105px;
+    width: 580px;
+    z-index: 5;
+}
+
+
+
+#buttonpost {
+    width: 85px;
+    height: 30px;
+    border-radius: 4px/4px;
+    background: #142170;
+    font-size: 15px;
+    outline: none;
+    color: white;
+}
+
+#column-1 {
+    left: 0px;
+    top: 0px;
+    background: white;
+    width: 600px;
+    height: 200px;
+    border-radius: 3px/3px;
+    font-size: 15px;
+    font-family: verdana;
+    color: #1b6192;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+
+
+
+
+.post1 {
+    margin-top: 10px;
+    left: 240px;
+    position: absolute;
+    background: white;
+    width: 600px;
+    height: 150px;
+    border-radius: 3px/3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#kullaniciadi {
+    color:blue;
+}
+
+#zaman {
+    margin-top: 55px;
+    margin-left: 430px;
+}
+
+#gonderi {
+    left: 20px;
+    top: 50px;
+    padding-top: 10px;
+    height: 40px;
+    width: 400px;
+}
+
+
+
+#side1 {
+    top: 100px;
+    left: 10px;
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    color: blue;
+}
+
+#side2 {
+    top: 130px;
+    left: 10px;
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    color: blue
+}
+
+#side3 {
+    top: 160px;
+    left: 10px;
+    width: 180px;
+    height: 30px;
+    font-size: 20px;
+    color: blue;
+}
+
+#side1:hover {
+    background: #e9f0f2;
+}
+
+#side2:hover {
+    background: #e9f0f2;
+}
+
+#side3:hover {
+    background: #e9f0f2;
+}
+
+.bodyn {
+    position: absolute;
+    left: 0;
+    top: 100px;
+    width: 100%;
+    height: 645px;
+}

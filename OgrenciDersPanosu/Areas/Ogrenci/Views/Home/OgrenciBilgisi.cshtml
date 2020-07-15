@@ -1,0 +1,37 @@
+﻿@model OgrenciDersPanosu.Models.OgrenciModel
+@using OgrenciDersPanosu.Models
+@{
+    ViewBag.Title = "OgrenciBilgisi";
+    //Ogrencinin kendi bilgilerinin gorutulendigi sayfa
+}
+<link href="~/Content/Mudur.css" rel="stylesheet" type="text/css" />
+<div class="card">
+    <img src="~/Content/Images/classmates.png" alt="Avatar" style="width:100%">
+    <div class="container">
+        <p><b>İsim: </b>@Model.Ad</p>
+        <p><b>Soyisim: </b>@Model.Soyad</p>
+        <p><b>Kullanıcı Adı: </b>@Model.OgrenciId</p>
+    </div>
+    <div>
+        <button class="btn btn-custom4 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Derslikler
+        </button>
+        <div class="dropdown-menu btn-custom4" aria-labelledby="dropdownMenuButton">
+            @if (Model.Notlar == null)
+            {
+                <div>Mevcut ders yok</div>
+            }
+            else
+            {
+                //Öğrencinin kayıt olduğu derslerin dersliklerinin listelenmesi sağlanır
+                foreach (OgrenciDersPanosu.Models.Not aNot in Model.Notlar)
+                {
+                    OgrenciDersPanosu.identity.IdentityDataContext context = new OgrenciDersPanosu.identity.IdentityDataContext();
+                    Ders ders = context.Dersler.Find(aNot.DersId);
+                    @Html.ActionLink(@ders.DersAdi, "Derslik", new { dersId = @ders.DersId }, new { @class = "btn btn-custom4 btn-sm" })<br />
+                }
+            }
+        </div>
+    </div>
+</div>
+

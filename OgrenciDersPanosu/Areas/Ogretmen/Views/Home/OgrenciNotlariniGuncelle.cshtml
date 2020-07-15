@@ -1,0 +1,32 @@
+﻿@model OgrenciDersPanosu.Models.Not
+@{
+    /**/
+
+    ViewBag.Title = "OgrenciNotlariniGuncelle";
+    /* Ogretmenn tarafindan secilen ogrencinin ilgili sinav notunun girilmesi/guncellenmesi*/
+}
+<link href="~/Content/OgrenciNotlariniGuncelle.css" rel="stylesheet" type="text/css" />
+@Html.ValidationSummary()
+<div  class="tabloDiv">
+    @using (Html.BeginForm())
+    {
+        @Html.LabelFor(i => i.Sinav1)
+        @Html.TextBoxFor(i => i.Sinav1, new { @class = "form-control", value = "Model.Sinav1" })
+
+        @Html.LabelFor(i => i.Sinav2)
+        @Html.TextBoxFor(i => i.Sinav2, new { @class = "form-control", value = "Model.Sinav2" })
+
+        @Html.LabelFor(i => i.Sinav3)
+        @Html.TextBoxFor(i => i.Sinav3, new { @class = "form-control", value = "Model.Sinav3" })
+
+        @Html.LabelFor(i => i.Sozlu1)
+        @Html.TextBoxFor(i => i.Sozlu1, new { @class = "form-control", value = "Model.Sozlu1" })
+
+        @Html.LabelFor(i => i.Sozlu2)
+        @Html.TextBoxFor(i => i.Sozlu2, new { @class = "form-control", value = "Model.Sozlu2" })
+
+        @Html.LabelFor(i => i.Sozlu3)
+        @Html.TextBoxFor(i => i.Sozlu3, new { @class = "form-control", value = "Model.Sozlu3" })
+        <button type="submit" class="btn btn-custom4">Save</button>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OgrenciDersPanosu.Models.Not>
+@using OgrenciDersPanosu.Models
+@{
+    ViewBag.Title = "OgrenciNotlariniGoruntule";
+    //Ogretmen tarafindan secilen ogrencinin, ders notlarinin goruntulenmesi
+}
+<link href="~/Content/OgrenciNotlariniGoruntule.css" rel="stylesheet" type="text/css" />
+@{
+    <div class="tabloDiv">
+        <table class="table table-striped">
+            @Html.AntiForgeryToken()
+            <tr>
+                <th>Öğrenci No</th>
+                <th>Öğrenci Adı & Soyadı</th>
+                <th>DersNo</th>
+                <th>Sınav1</th>
+                <th>Sınav2</th>
+                <th>Sınav3</th>
+                <th>Sözlü1</th>
+                <th>Sözlü2</th>
+                <th>Sözlü3</th>
+                <th>Not Ortalaması</th>
+            </tr>
+            @if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3">Kayıtlı Öğrenci Yok</td>
+                </tr>
+            }
+            else
+            {
+                if(Model.Count() != 0) {
+                    foreach (OgrenciDersPanosu.Models.Not aNot in Model)
+                    {
+                        OgrenciDersPanosu.identity.IdentityDataContext context = new OgrenciDersPanosu.identity.IdentityDataContext();
+                        OgrenciModel ogrenci = context.Ogrenciler.Find(aNot.OgrenciId);
+                    <tr>
+                        <th>@Html.ActionLink(ogrenci.OgrenciId, "OgrenciNotlariniGuncelle", new { notId = aNot.NotId, dersId = aNot.Ders.DersId }, new { @class = "btn btn-custom4 btn-sm" })</th>
+                        <th>@ogrenci.Ad @ogrenci.Soyad</th>
+                        <th>@aNot.Ders.DersId</th>
+                        <th>@aNot.Sinav1</th>
+                        <th>@aNot.Sinav2</th>
+                        <th>@aNot.Sinav3</th>
+                        <th>@aNot.Sozlu1</th>
+                        <th>@aNot.Sozlu2</th>
+                        <th>@aNot.Sozlu3</th>
+                        <th>@Html.NotHesapla(aNot)</th>
+                    </tr>
+                }
+                }
+            }
+        </table>
+    </div>
+}

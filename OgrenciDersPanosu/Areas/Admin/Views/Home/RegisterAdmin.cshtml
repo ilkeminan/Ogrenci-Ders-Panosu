@@ -1,0 +1,33 @@
+﻿@model OgrenciDersPanosu.Models.RegisterAdmin
+@{
+    /**/
+    //Yeni admin oluşturma işleminin yapılmasını sağlar
+    ViewBag.Title = "Register";
+}
+<link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
+<div class="form">
+    <h2>Kayıt Ol</h2>
+    <hr />
+    @Html.ValidationSummary()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(i => i.AdminId)
+            @Html.TextBoxFor(i => i.AdminId, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(i => i.AdminIsim)
+            @Html.TextBoxFor(i => i.AdminIsim, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(i => i.AdminSoyisim)
+            @Html.TextBoxFor(i => i.AdminSoyisim, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(i => i.Sifre)
+            @Html.TextBoxFor(i => i.Sifre, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-custom3">Register</button>
+    }
+</div>

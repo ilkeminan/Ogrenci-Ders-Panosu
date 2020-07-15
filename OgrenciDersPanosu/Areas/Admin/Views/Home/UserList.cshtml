@@ -1,0 +1,37 @@
+﻿@model IEnumerable<OgrenciDersPanosu.Areas.Admin.Models.UserWithRole>
+@{
+    ViewBag.Title = "getUserList";
+    //Sisteme kaydolan kullanıcıların listelenmesini sağlar
+}
+<link href="~/Content/GetUserList.css" rel="stylesheet" type="text/css" />
+<div class="tabloDiv">
+    <table class="table table-striped">
+        <tr>
+
+            <th>İsim</th>
+            <th>Soyisim</th>
+            <th>Rol</th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr>
+                <td colspan="3" class="text-center">
+                    Kullanıcı Yok
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.user.Name</td>
+                    <td>@item.user.Surname</td>
+                    <td>@string.Join(", ", item.Roles.ToArray())</td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@model OgrenciDersPanosu.Models.RegisterOgrenci
+@{
+    ViewBag.Title = "Register";
+    //Öğrenci kayıt sayfasıdır.
+}
+
+<link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
+<div class="form">
+    <h2>Kayıt Ol</h2>
+    <hr />
+    @Html.ValidationSummary()
+    @using (Html.BeginForm())
+    {
+        //Öğrenci için kayıt formu post edilmesini sağlar
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(i => i.OgrenciNo)
+            @Html.TextBoxFor(i => i.OgrenciNo, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(i => i.OgrenciIsim)
+            @Html.TextBoxFor(i => i.OgrenciIsim, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(i => i.OgrenciSoyisim)
+            @Html.TextBoxFor(i => i.OgrenciSoyisim, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(i => i.Sifre)
+            @Html.TextBoxFor(i => i.Sifre, new { @class = "form-control" })
+        </div>
+        <button type="submit" class="btn btn-custom3">Register</button>
+    }
+</div>
+
+

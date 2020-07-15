@@ -1,0 +1,53 @@
+﻿@model OgrenciDersPanosu.Models.OgretmenModel
+@{
+    ViewBag.Title = "DersListele";
+    //Ogretmenin vermis oldugu derslerin goruntulendigi sayfa
+}
+<link href="~/Content/Mudur.css" rel="stylesheet" type="text/css" />
+@{
+    <div class="card">
+        <img src="~/Content/Images/teacher.png" alt="Avatar" style="width:100%">
+        <div class="container">
+            <h4><b>@Model.OgretmenId</b></h4>
+            <p>@Model.Ad</p>
+            <p>@Model.Soyad</p>
+            <div>
+                <button class="btn btn-custom4 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Mevcut Dersler
+                </button>
+                <div class="dropdown-menu btn-custom4" aria-labelledby="dropdownMenuButton">
+                    @if (Model.Dersler == null)
+                    {
+                        <div>Mevcut ders yok</div>
+                    }
+                    else
+                    {
+                        foreach (OgrenciDersPanosu.Models.Ders aDers in Model.Dersler)
+                        {
+                            @Html.ActionLink(aDers.DersAdi, "OgrenciNotlariniGoruntule", new { dersId = aDers.DersId }, new { @class = "btn btn-custom4 btn-sm" })<br />
+                        }
+                    }
+                </div>
+            </div>
+            <hr />
+            <div>
+                <button class="btn btn-custom4 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Derslikler
+                </button>
+                <div class="dropdown-menu btn-custom4" aria-labelledby="dropdownMenuButton">
+                    @if (Model.Dersler == null)
+                    {
+                        <div>Mevcut ders yok</div>
+                    }
+                    else
+                    {
+                        foreach (OgrenciDersPanosu.Models.Ders aDers in Model.Dersler)
+                        {
+                            @Html.ActionLink(aDers.DersAdi, "Derslik", new { dersId = aDers.DersId }, new { @class = "btn btn-custom4 btn-sm" })<br />
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
