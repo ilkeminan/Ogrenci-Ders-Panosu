@@ -1,32 +1,37 @@
 ﻿@model OgrenciDersPanosu.Models.RegisterAdmin
 @{
-    /**/
-    //Yeni admin oluşturma işleminin yapılmasını sağlar
     ViewBag.Title = "Register";
+    //Yeni admin oluşturma işleminin yapılmasını sağlar
 }
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
 <div class="form">
     <h2>Kayıt Ol</h2>
     <hr />
-    @Html.ValidationSummary()
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <div class="form-group">
             @Html.LabelFor(i => i.AdminId)
             @Html.TextBoxFor(i => i.AdminId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.AdminId, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.AdminIsim)
             @Html.TextBoxFor(i => i.AdminIsim, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.AdminIsim, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.AdminSoyisim)
             @Html.TextBoxFor(i => i.AdminSoyisim, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.AdminSoyisim, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.Sifre)
-            @Html.TextBoxFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.PasswordFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.Sifre, "", new { @class = "text-warning" })
         </div>
         <button type="submit" class="btn btn-custom3">Register</button>
     }

@@ -6,9 +6,11 @@
 @{
     ViewBag.Title = "Login";
 }
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
 <div class="form">
-    @Html.ValidationSummary()
     <h2>Giriş Yap</h2>
     <hr />
     @using (Html.BeginForm())
@@ -20,10 +22,12 @@
         <div class="form-group">
             @Html.LabelFor(i => i.OgretmenId)
             @Html.TextBoxFor(i => i.OgretmenId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgretmenId, "", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.Sifre)
             @Html.PasswordFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.Sifre, "", new { @class = "text-danger" })
         </div>
         <button class="btn btn-custom4" type="submit">Login</button>
     }

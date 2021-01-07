@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using OgrenciDersPanosu.Areas.Admin.Models;
 using OgrenciDersPanosu.Controllers;
+using OgrenciDersPanosu.Filters;
 using OgrenciDersPanosu.identity;
 using OgrenciDersPanosu.Models;
 using System;
@@ -14,7 +15,7 @@ using static OgrenciDersPanosu.Areas.Admin.Models.RoleModel;
 
 namespace OgrenciDersPanosu.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [AdminAuthFilter]
     public class HomeController : BaseController
     {
         // GET: Admin/Home
@@ -186,9 +187,8 @@ namespace OgrenciDersPanosu.Areas.Admin.Controllers
         {
             var authManager = HttpContext.GetOwinContext().Authentication;
             authManager.SignOut();
+            Session["admin"] = null;         //Sessionda admin yoksa admin sayfalarına ulaşılamayacak.
             return RedirectToAction("index", "Home", new { Area = "" });
-
-
         }
     }
 }

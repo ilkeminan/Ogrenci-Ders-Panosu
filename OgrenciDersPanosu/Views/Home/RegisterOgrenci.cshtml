@@ -3,12 +3,13 @@
     ViewBag.Title = "Register";
     //Öğrenci kayıt sayfasıdır.
 }
-
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
 <div class="form">
     <h2>Kayıt Ol</h2>
     <hr />
-    @Html.ValidationSummary()
     @using (Html.BeginForm())
     {
         //Öğrenci için kayıt formu post edilmesini sağlar
@@ -16,18 +17,22 @@
         <div class="form-group">
             @Html.LabelFor(i => i.OgrenciNo)
             @Html.TextBoxFor(i => i.OgrenciNo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgrenciNo, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.OgrenciIsim)
             @Html.TextBoxFor(i => i.OgrenciIsim, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgrenciIsim, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.OgrenciSoyisim)
             @Html.TextBoxFor(i => i.OgrenciSoyisim, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgrenciSoyisim, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.Sifre)
-            @Html.TextBoxFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.PasswordFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.Sifre, "", new { @class = "text-warning" })
         </div>
         <button type="submit" class="btn btn-custom3">Register</button>
     }

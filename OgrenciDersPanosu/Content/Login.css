@@ -15,10 +15,10 @@ body {
     border-radius: 10%;
     background-color: #E0D987;
     padding: 20px;
-    height: 370px;
     width: 250px;
     margin-left: 540px;
     margin-top: 50px;
+    margin-bottom: 10px;
 }
 
 .form-label1 {

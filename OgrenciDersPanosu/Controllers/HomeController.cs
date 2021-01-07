@@ -90,6 +90,7 @@ namespace OgrenciDersPanosu.Controllers
                         };
                         authManager.SignOut();
                         authManager.SignIn(authProperties, identity);
+                        Session["admin"] = model;         //Sessionda admin yoksa admin sayfalarına ulaşılamayacak.
                         return RedirectToAction("index", "home", new { area = "Admin" });
                     }
                     else

@@ -1,15 +1,15 @@
-﻿
-@model OgrenciDersPanosu.Models.RegisterOgretmen
+﻿@model OgrenciDersPanosu.Models.RegisterOgretmen
 @{
     ViewBag.Title = "Register";
     //Öğretmen kayıt sayfasıdır
 }
-
+<script src="~/Scripts/jquery-3.5.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <link href="~/Content/Register.css" rel="stylesheet" type="text/css" />
 <div class="form">
     <h2>Kayıt Ol</h2>
     <hr />
-    @Html.ValidationSummary()
     @using (Html.BeginForm())
     {
         //Öğretmen için kayıt formu post edilmesini sağlar
@@ -17,18 +17,22 @@
         <div class="form-group">
             @Html.LabelFor(i => i.OgretmenId)
             @Html.TextBoxFor(i => i.OgretmenId, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgretmenId, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.OgretmenIsim)
             @Html.TextBoxFor(i => i.OgretmenIsim, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgretmenIsim, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.OgretmenSoyisim)
             @Html.TextBoxFor(i => i.OgretmenSoyisim, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.OgretmenSoyisim, "", new { @class = "text-warning" })
         </div>
         <div class="form-group">
             @Html.LabelFor(i => i.Sifre)
-            @Html.TextBoxFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.PasswordFor(i => i.Sifre, new { @class = "form-control" })
+            @Html.ValidationMessageFor(i => i.Sifre, "", new { @class = "text-warning" })
         </div>
         <button type="submit" class="btn btn-custom3">Register</button>
     }

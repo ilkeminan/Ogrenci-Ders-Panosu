@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -8,56 +9,56 @@ namespace OgrenciDersPanosu.Models
 {
     public class LoginOgrenci
     {
-        [Required]
+        [DisplayName("Öğrenci No"), Required(ErrorMessage ="{0} alanı zorunludur.")]
         public string OgrenciNo { get; set; }
-        [Required]
+        [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string Sifre { get; set; }
     }
     public class RegisterOgrenci
     {
-        [Required]
+        [DisplayName("Öğrenci No"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgrenciNo { get; set; }
-        [Required]
+        [DisplayName("Öğrenci İsim"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgrenciIsim { get; set; }
-        [Required]
+        [DisplayName("Öğrenci Soyisim"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgrenciSoyisim { get; set; }
-        [Required]
+        [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string Sifre { get; set; }
     }
     public class LoginOgretmen
     {
-        [Required]
+        [DisplayName("Öğretmen Id"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgretmenId { get; set; }
-        [Required]
+        [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string Sifre { get; set; }
     }
     public class RegisterOgretmen
     {
-        [Required]
+        [DisplayName("Öğretmen Id"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgretmenId { get; set; }
-        [Required]
+        [DisplayName("Öğretmen İsim"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgretmenIsim { get; set; }
-        [Required]
+        [DisplayName("Öğretmen Soyisim"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string OgretmenSoyisim { get; set; }
-        [Required]
+        [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string Sifre { get; set; }
     }
     public class LoginAdmin
     {
-        [Required]
+        [DisplayName("Admin Id"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string AdminId { get; set; }
-        [Required]
+        [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string Sifre { get; set; }
     }
     public class RegisterAdmin
     {
-        [Required]
+        [DisplayName("Admin Id"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string AdminId { get; set; }
-        [Required]
+        [DisplayName("Admin İsim"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string AdminIsim { get; set; }
-        [Required]
+        [DisplayName("Admin Soyisim"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string AdminSoyisim { get; set; }
-        [Required]
+        [DisplayName("Şifre"), Required(ErrorMessage = "{0} alanı zorunludur.")]
         public string Sifre { get; set; }
     }
 

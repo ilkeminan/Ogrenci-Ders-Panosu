@@ -15,10 +15,10 @@ body {
     border-radius: 10%;
     background-color: #913F3A;
     padding: 20px;
-    height: 490px;
     width: 250px;
     margin-left: 540px;
     margin-top: 5px;
+    margin-bottom: 15px;
 }
 
 .form-label1 {
@@ -30,6 +30,6 @@ body {
     background-color: #1D2731;
 }
 
-    .btn-custom3:hover {
-        opacity: 0.8;
-    }
+.btn-custom3:hover {
+    opacity: 0.8;
+}
