@@ -43,7 +43,7 @@
                     {
                         foreach (OgrenciDersPanosu.Models.Ders aDers in Model.Dersler)
                         {
-                            @Html.ActionLink(aDers.DersAdi, "Derslik", new { dersId = aDers.DersId }, new { @class = "btn btn-custom4 btn-sm" })<br />
+                            @Html.ActionLink(aDers.DersAdi, "Index", "Derslik", new { dersId = aDers.DersId }, new { @class = "btn btn-custom4 btn-sm" })<br />
                         }
                     }
                 </div>

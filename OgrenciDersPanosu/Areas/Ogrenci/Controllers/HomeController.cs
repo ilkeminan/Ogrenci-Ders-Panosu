@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 namespace OgrenciDersPanosu.Areas.Ogrenci.Controllers
 {
+    [Authorize(Roles = "Ogrenci")]
     public class HomeController : BaseController
     {
         // GET: Ogrenci/Home
@@ -101,60 +102,6 @@ namespace OgrenciDersPanosu.Areas.Ogrenci.Controllers
             }
             dbcontext.SaveChanges();
             return RedirectToAction("DersSecimi");
-        }
-
-        //Öğrencinin kayıt olduğu derslerin dersliklerine girişi sağlar, ve gönderiler listelenir. Aynı zamanda öğrenci yeni gönderi gönderebilir
-        public ActionResult Derslik(string dersId)
-        {
-            ViewBag.dersId = dersId;
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Derslik(Derslik_Gonderi model, string dersId)
-        {
-            if (ModelState.IsValid)
-            {
-                Derslik_Gonderi gonderi = new Derslik_Gonderi();
-                int id;
-                if (dbcontext.Gonderiler.Count() != 0)
-                {
-                    var son_gonderi = dbcontext.Gonderiler.OrderByDescending(w => w.zaman).First();  //zamana göre son gönderiyi belirleme
-                    id = int.Parse(son_gonderi.GonderiId) + 1;                               //id son gönderinin id sinin 1 fazlası olmalı
-                }
-                else
-                {
-                    id = 0;
-                }
-                gonderi.GonderiId = id.ToString();
-                gonderi.Gonderi = model.Gonderi;
-                gonderi.zaman = DateTime.Now;
-                gonderi.dersId = dersId;
-
-                OgrenciModel ogrenci = dbcontext.Ogrenciler.Find(User.Identity.Name);
-                gonderi.gonderenIsmi = ogrenci.Ad + " " + ogrenci.Soyad;
-                Ders ders = dbcontext.Dersler.Find(model.dersId);
-                gonderi.Ders = ders;
-                ders.Gonderiler.Add(gonderi);
-                dbcontext.Gonderiler.Add(gonderi);
-                dbcontext.SaveChanges();
-            }
-            ViewBag.dersId = dersId;
-            return View(model);
-        }
-
-        //Giriş yapılan derslikte kayıtlı olan öğrencileri gösterir
-        public ActionResult Derslik_Uyeleri(string dersId)
-        {
-            var notlar = dbcontext.Notlar.Where(i => i.DersId == dersId).ToList();
-            List<OgrenciModel> ogrencilist = new List<OgrenciModel>();
-            foreach (Not not in notlar)
-            {
-                ogrencilist.Add(dbcontext.Ogrenciler.Find(not.OgrenciId));
-            }
-            ViewBag.dersId = dersId;
-            return View(ogrencilist);
         }
     }
 }

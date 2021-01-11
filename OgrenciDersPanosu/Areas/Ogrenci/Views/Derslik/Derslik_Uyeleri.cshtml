@@ -1,0 +1,73 @@
+﻿@using System.Web.Helpers
+@model IEnumerable<OgrenciDersPanosu.Models.OgrenciModel>
+@{
+    ViewBag.Title = "Derslik_Uyeleri";
+}
+
+<link href="~/Content/DerslikUyeTablosu.css" rel="stylesheet" />
+<link href="~/Content/OgrenciNotlariniGoruntule.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+@{
+    WebGrid grid = new WebGrid(
+        source: Model,
+        columnNames: new[] { "OgrenciId", "Ad", "Soyad" },
+        defaultSort: "OgrenciId",
+        rowsPerPage: 8,
+        canPage: true,
+        canSort: true,
+        //ajaxUpdateContainerId: "mytable",
+        //ajaxUpdateCallback: "mytable_databind",
+        pageFieldName: "sayfano",
+        sortFieldName: "sirali",
+        sortDirectionFieldName: "yon");
+}
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            <div class="input-group mb-3">
+                <input type="text" name="search" id="search" class="form-control col-md-2 offset-1" placeholder="Aranan metin" aria-label="Aranan metin" aria-describedby="basic-addon2">
+                <button type="submit" class="btn btn-success input-group-append">
+                    <span class="fa fa-search"></span>Ara
+                </button>
+            </div>
+
+        }
+    </div>
+
+    <div class="col-md-12">
+        <hr />
+    </div>
+
+    <div class="col-md-12">
+        @grid.GetHtml(
+            //caption: "Derslik Üyeleri",
+            displayHeader: true,
+            fillEmptyRows: false,
+            mode: WebGridPagerModes.All,
+            numericLinksCount: 3,
+            columns: new[] {
+                grid.Column("OgrenciId","Öğrenci No"),
+                grid.Column("Ad","Öğrenci Adı"),
+                grid.Column("Soyad","Öğrenci Soyadı"),
+            },
+            firstText: "ilk",
+            lastText: "[son]",
+            previousText: "[önceki]",
+            nextText: "[sonraki]",
+            htmlAttributes: new { id = "mytable" }
+       )
+    </div>
+</div>
+
+<script>
+    var table = document.getElementById("mytable");
+    table.classList.add("tabloDiv");
+    table.classList.add("table");
+    table.classList.add("table-striped");
+    /*function mytable_databind() {
+        console.log("mytable yüklendi..");
+    }*/
+</script>

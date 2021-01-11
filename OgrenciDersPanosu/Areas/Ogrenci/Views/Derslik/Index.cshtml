@@ -1,0 +1,91 @@
+﻿@model OgrenciDersPanosu.Models.Derslik_Gonderi
+@{
+    //Öğrencinin seçimini yaptığı dersin derslik panosu, burada öğretmen ve öğrenci arası etkileşim sağlanır.
+    ViewBag.Title = "Derslik";
+    Layout = "~/Areas/Ogrenci/Views/Shared/_Layout_nav_not_fixed.cshtml";
+}
+
+<link href="~/Content/Derslik.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group">
+                <a class="list-group-item card_color" href="@Url.Action("OgrenciBilgisi","Home")"><span class="fa fa-home"></span> Anasayfa</a>
+                <a class="list-group-item card_color" href="@Url.Action("Index", "Derslik", new { dersId = ViewBag.dersId })"><span class="fa fa-clipboard"></span> Sınıf Panosu</a>
+                <a class="list-group-item card_color" href="@Url.Action("Derslik_Uyeleri", "Derslik", new { dersId = ViewBag.dersId })"><span class="fa fa-group"></span> Üyeler</a>
+                <a class="list-group-item card_color" href="/Ogrenci/Home/OgrenciNotuListele"><span class="fa fa-book"></span> Notlar</a>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    @{
+                        OgrenciDersPanosu.identity.IdentityDataContext context = new OgrenciDersPanosu.identity.IdentityDataContext();
+                        OgrenciDersPanosu.Models.Ders ders = context.Dersler.Find(ViewBag.dersId);
+                        string ders_adi = ders.DersAdi;
+                    }
+                    <div id="column-1"><h2>@(ders_adi)</h2><hr></div>
+                    <div>
+                        @Html.ValidationSummary()
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.TextAreaFor(i => i.Gonderi, new { @class = "form-control", @id = "postbox", @type = "text", @placeholder = "Güncelleme Yap" })
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-custom5 btn-sm"><span class="fa fa-send"></span> Gönder</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @{
+                context = new OgrenciDersPanosu.identity.IdentityDataContext();
+                ders = context.Dersler.Find(ViewBag.dersId);
+                var gonderiler = new List<OgrenciDersPanosu.Models.Derslik_Gonderi>();
+                if (ders.Gonderiler != null)
+                {
+                    gonderiler = ders.Gonderiler.ToList();
+                    gonderiler = gonderiler.OrderByDescending(o => o.zaman).ToList();
+                }
+                if (gonderiler != null)
+                {
+                    foreach (var gonderi in gonderiler)
+                    {
+                        <div class="card toppos card_color">
+                            <div class="card-body">
+                                <div id="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</div>
+                                <span id="gonderi_text_@gonderi.GonderiId" contenteditable="false">@gonderi.Gonderi</span>
+                                <div class="row bottom_of_card">
+                                    @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi.gonderenID))
+                                    {
+                                        <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi.GonderiId', 'Ogrenci')"><span class="fa fa-edit"></span> Güncelle</button>
+                                        <button id="deleteButton" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
+                                        <div id="zaman" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                                    }
+                                    else
+                                    {
+                                        <div id="zaman" class="col-md-6 offset-6"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    //prevent form resubmission
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+<script src="~/Scripts/GonderiDuzenle.js"></script>

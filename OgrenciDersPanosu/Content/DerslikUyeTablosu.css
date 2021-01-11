@@ -1,0 +1,15 @@
+﻿#mytable {
+    width: 1200px;
+}
+
+#mytable tr:hover {
+    background-color: #ceff54;
+}
+
+#mytable tr th {
+    border: 1px solid #808080;
+}
+
+#mytable tr td {
+    border: 1px solid #808080;
+}
