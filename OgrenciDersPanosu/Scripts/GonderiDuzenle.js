@@ -1,4 +1,4 @@
-﻿function Edit(btn, spanid, controllerName) {
+﻿function Edit(btn, spanid, deleteButtonId, controllerName) {
     var button = $(btn);
     var ders_id = button.data("ders-id");
     var gonderi_id = button.data("gonderi-id");
@@ -15,7 +15,8 @@
         $(spanid).attr("contenteditable", true);
         $(spanid).focus();
 
-        document.getElementById("deleteButton").style.display = "none";
+        //$(deleteButtonId).style.display = "none";
+        document.getElementById(deleteButtonId).style.display = "none";
     }
     else {
         button.data("edit-mode", false);
@@ -28,7 +29,8 @@
         $(spanid).removeClass("editable");
         $(spanid).attr("contenteditable", false);
 
-        document.getElementById("deleteButton").style.display = "inline-block";
+        document.getElementById(deleteButtonId).style.display = "inline-block";
+        //$(deleteButtonId).style.display = "inline-block";
 
         var txt = $(spanid).text();
 

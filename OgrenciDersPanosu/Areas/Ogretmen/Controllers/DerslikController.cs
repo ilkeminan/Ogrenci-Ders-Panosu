@@ -71,7 +71,6 @@ namespace OgrenciDersPanosu.Areas.Ogretmen.Controllers
             if (gonderi != null)
             {
                 gonderi.Gonderi = text;
-                gonderi.zaman = DateTime.Now;
                 dbcontext.Entry(gonderi).State = EntityState.Modified;
                 dbcontext.SaveChanges();
             }

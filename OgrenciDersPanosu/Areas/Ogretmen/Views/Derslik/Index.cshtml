@@ -33,7 +33,7 @@
                         {
                             @Html.AntiForgeryToken()
                             <div class="form-group">
-                                @Html.TextAreaFor(i => i.Gonderi, new { @class = "form-control", @id = "postbox", @type = "text", @placeholder = "Güncelleme Yap" })
+                                @Html.TextAreaFor(i => i.Gonderi, new { @class = "form-control post", @id = "postbox", @type = "text", @placeholder = "Güncelleme Yap" })
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-custom5 btn-sm"><span class="fa fa-send"></span> Gönder</button>
@@ -58,13 +58,13 @@
                     {
                         <div class="card toppos card_color">
                             <div class="card-body">
-                                <div id="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</div>
-                                <span id="gonderi_text_@gonderi.GonderiId" contenteditable="false">@gonderi.Gonderi</span>
+                                <h5 id="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</h5>
+                                <span id="gonderi_text_@gonderi.GonderiId" class="post" contenteditable="false">@gonderi.Gonderi</span>
                                 <div class="row bottom_of_card">
                                     @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi.gonderenID))
                                     {
-                                        <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi.GonderiId', 'Ogretmen')"><span class="fa fa-edit"></span> Güncelle</button>
-                                        <button id="deleteButton" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
+                                        <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi.GonderiId', 'deleteButton_@gonderi.GonderiId', 'Ogretmen')"><span class="fa fa-edit"></span> Güncelle</button>
+                                        <button id="deleteButton_@gonderi.GonderiId" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
                                         <div id="zaman" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
                                     }
                                     else

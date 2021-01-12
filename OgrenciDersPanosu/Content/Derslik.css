@@ -7,11 +7,8 @@ html {
 }
 
 .post {
-    top: 70px;
-    left: 240px;
-    position: absolute;
-    width: 600px;
-    height: 210px;
+    font-style: italic;
+    font-weight: bold;
 }
 
 #uploadpos {
