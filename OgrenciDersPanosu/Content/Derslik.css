@@ -6,11 +6,6 @@ html {
     background-color: #D3DBDE !important;
 }
 
-.post {
-    font-style: italic;
-    font-weight: bold;
-}
-
 #uploadpos {
     left: 0px;
     top: 165px;
@@ -85,12 +80,17 @@ html {
     padding-top: 10px;
 }
 
-#kullaniciadi {
+.kullaniciadi {
     color:blue;
 }
 
 #zaman {
     margin-left: 420px;
+    color: blue;
+}
+
+#comment_time {
+    margin-left: 380px;
     color: blue;
 }
 
@@ -105,8 +105,6 @@ html {
     height: 40px;
     width: 400px;
 }
-
-
 
 #side1 {
     top: 100px;
@@ -161,4 +159,16 @@ html {
 
 .card_color {
     background-color: #E9E9E9;
+}
+
+.post {
+    font-style: italic;
+    font-weight: bold;
+}
+
+#comment {
+    font-style: italic;
+    font-weight: bold;
+    width: 515px;
+    height:40px;
 }

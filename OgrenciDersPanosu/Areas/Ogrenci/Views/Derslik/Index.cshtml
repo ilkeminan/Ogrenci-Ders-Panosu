@@ -56,24 +56,73 @@
                 {
                     foreach (var gonderi in gonderiler)
                     {
-                        <div class="card toppos card_color">
-                            <div class="card-body">
-                                <h5 id="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</h5>
-                                <span id="gonderi_text_@gonderi.GonderiId" class="post" contenteditable="false">@gonderi.Gonderi</span>
-                                <div class="row bottom_of_card">
-                                    @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi.gonderenID))
-                                    {
-                                        <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi.GonderiId', 'deleteButton_@gonderi.GonderiId', 'Ogrenci')"><span class="fa fa-edit"></span> Güncelle</button>
-                                        <button id="deleteButton_@gonderi.GonderiId" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
-                                        <div id="zaman" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                        if (gonderi.UstGonderiID == null)    //Gönderi yorum değilse
+                        {
+                            <div class="card toppos card_color">
+                                <div class="card-body">
+                                    <h5 class="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</h5>
+                                    <span id="gonderi_text_@gonderi.GonderiId" class="post" contenteditable="false">@gonderi.Gonderi</span>
+                                    <div class="row bottom_of_card">
+                                        @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi.gonderenID))
+                                        {
+                                            <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi.GonderiId', 'deleteButton_@gonderi.GonderiId', 'Ogrenci')"><span class="fa fa-edit"></span> Güncelle</button>
+                                            <button id="deleteButton_@gonderi.GonderiId" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
+                                            <div id="zaman" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                                        }
+                                        else
+                                        {
+                                            <div id="zaman" class="col-md-6 offset-6"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                                        }
+                                    </div>
+
+                                    <h6>Yorumlar</h6>
+                                    @{ 
+                                        var gonderiler_sirali = new List<OgrenciDersPanosu.Models.Derslik_Gonderi>();
+                                        gonderiler_sirali = ders.Gonderiler.ToList();
+                                        foreach (var gonderi_yorum in gonderiler_sirali)
+                                        {
+                                            if(gonderi_yorum.UstGonderiID == gonderi.GonderiId)
+                                            {
+                                                <div class="card card_color">
+                                                    <div class="card-body">
+                                                        <div class="card-title kullaniciadi"><span class="fa fa-user"></span> @gonderi_yorum.gonderenIsmi</div>
+                                                        <span id="gonderi_text_@gonderi_yorum.GonderiId" class="post" contenteditable="false">@gonderi_yorum.Gonderi</span>
+                                                        <div class="row bottom_of_card">
+                                                            @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi_yorum.gonderenID))
+                                                            {
+                                                                <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi_yorum.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi_yorum.GonderiId', 'deleteButton_@gonderi_yorum.GonderiId', 'Ogrenci')"><span class="fa fa-edit"></span> Güncelle</button>
+                                                                <button id="deleteButton_@gonderi_yorum.GonderiId" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi_yorum.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
+                                                                <div id="comment_time" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi_yorum.zaman</div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div id="comment_time" class="col-md-6 offset-6"><span class="fa fa-clock-o"></span> @gonderi_yorum.zaman</div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
                                     }
-                                    else
-                                    {
-                                        <div id="zaman" class="col-md-6 offset-6"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
-                                    }
+
+                                    <div>
+                                        @using (Html.BeginForm("Comment", "Derslik"))
+                                        {
+                                             <div class="row">
+                                                 <div class="form-group col-md-10">
+                                                     <textarea id="comment" class="form-control post" type="text" name="comment_text" placeholder="Yorum Yap"></textarea>
+                                                 </div>
+                                                 <input type="hidden" name="ustGonderiId" value=@gonderi.GonderiId>
+                                                 <input type="hidden" name="dersId" value=@ViewBag.dersId>
+                                                 <div class="col-md-2">
+                                                     <button type="submit" class="btn btn-custom5 btn-sm"><span class="fa fa-comment"></span> Gönder</button>
+                                                 </div>
+                                             </div> 
+                                        }
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
                 }
             }

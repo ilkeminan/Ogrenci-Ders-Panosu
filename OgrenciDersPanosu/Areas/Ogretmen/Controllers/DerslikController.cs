@@ -82,9 +82,55 @@ namespace OgrenciDersPanosu.Areas.Ogretmen.Controllers
             Derslik_Gonderi gonderi = dbcontext.Gonderiler.Find(gonderiId);
             if (gonderi != null)
             {
+                Ders ders = dbcontext.Dersler.Find(dersId);
+                List<Derslik_Gonderi> gonderiler = ders.Gonderiler.ToList();
+                foreach (var gonderi_yorum in gonderiler)
+                {
+                    if(gonderi_yorum.UstGonderiID == gonderi.GonderiId)
+                    {
+                        dbcontext.Gonderiler.Remove(gonderi_yorum);
+                    }
+                }
                 dbcontext.Gonderiler.Remove(gonderi);
                 dbcontext.SaveChanges();
             }
+            return RedirectToAction("Index", new { dersId = dersId });
+        }
+
+        [HttpPost]
+        public ActionResult Comment(string ustGonderiId, string dersId, string comment_text)
+        {
+            if (ModelState.IsValid)
+            {
+                Derslik_Gonderi gonderi = new Derslik_Gonderi();
+                int id;
+                if (dbcontext.Gonderiler.Count() != 0)
+                {
+                    var son_gonderi = dbcontext.Gonderiler.OrderByDescending(w => w.zaman).First();  //zamana göre son gönderiyi belirleme
+                    id = int.Parse(son_gonderi.GonderiId) + 1;                               //id son gönderinin id sinin 1 fazlası olmalı
+                }
+                else
+                {
+                    id = 0;
+                }
+                gonderi.GonderiId = id.ToString();
+                gonderi.Gonderi = comment_text;
+                gonderi.zaman = DateTime.Now;
+                gonderi.dersId = dersId;
+                gonderi.UstGonderiID = ustGonderiId;
+
+                OgretmenModel ogretmen = dbcontext.Ogretmenler.Find(User.Identity.Name);
+                gonderi.gonderenIsmi = ogretmen.Ad + " " + ogretmen.Soyad;
+                gonderi.gonderenID = ogretmen.OgretmenId;
+                Ders ders = dbcontext.Dersler.Find(dersId);
+                gonderi.Ders = ders;
+                ders.Gonderiler.Add(gonderi);
+                dbcontext.Gonderiler.Add(gonderi);
+                dbcontext.SaveChanges();
+
+                ViewBag.currentUserId = ogretmen.OgretmenId;
+            }
+            ViewBag.dersId = dersId;
             return RedirectToAction("Index", new { dersId = dersId });
         }
 
