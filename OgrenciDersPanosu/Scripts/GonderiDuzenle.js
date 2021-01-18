@@ -15,7 +15,6 @@
         $(spanid).attr("contenteditable", true);
         $(spanid).focus();
 
-        //$(deleteButtonId).style.display = "none";
         document.getElementById(deleteButtonId).style.display = "none";
     }
     else {
@@ -30,7 +29,6 @@
         $(spanid).attr("contenteditable", false);
 
         document.getElementById(deleteButtonId).style.display = "inline-block";
-        //$(deleteButtonId).style.display = "inline-block";
 
         var txt = $(spanid).text();
 

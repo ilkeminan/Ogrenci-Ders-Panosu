@@ -26,6 +26,7 @@ namespace OgrenciDersPanosu.identity
 
         public DbSet<Derslik_Gonderi> Gonderiler { get; set; }
 
+        public DbSet<Begeni> Begeniler { get; set; }
 
     }
 }

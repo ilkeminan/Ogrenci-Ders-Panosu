@@ -189,6 +189,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\GonderiBegen.js" />
     <Content Include="Scripts\GonderiDuzenle.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
@@ -332,6 +333,7 @@
     <Compile Include="identity\ApplicationUser.cs" />
     <Compile Include="identity\IdentityDataContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Begeni.cs" />
     <Compile Include="Models\DbExtensions.cs" />
     <Compile Include="Models\Derslik_Gonderi.cs" />
     <Compile Include="Models\OgretmenModel.cs" />

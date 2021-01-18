@@ -24,6 +24,14 @@ namespace OgrenciDersPanosu.Areas.Ogretmen.Controllers
             ViewBag.dersId = dersId;
             OgretmenModel ogretmen = dbcontext.Ogretmenler.Find(User.Identity.Name);
             ViewBag.currentUserId = ogretmen.OgretmenId;
+            //Kullanıcının beğendiği gönderilerin id'sini çekme
+            List<string> liked_posts = dbcontext.Begeniler.Join(dbcontext.Gonderiler,
+                                 begeni => begeni.GonderiId,
+                                 gonderi => gonderi.GonderiId,
+                                 (begeni, gonderi) => begeni)
+                                 .Where(begeni => begeni.begenenID == ogretmen.OgretmenId)
+                                 .Select(begeni => begeni.GonderiId).ToList();
+            ViewBag.begenilen_gonderiler = liked_posts;
             return View();
         }
 
@@ -59,6 +67,14 @@ namespace OgrenciDersPanosu.Areas.Ogretmen.Controllers
                 dbcontext.SaveChanges();
 
                 ViewBag.currentUserId = ogretmen.OgretmenId;
+                //Kullanıcının beğendiği gönderilerin id'sini çekme
+                List<string> liked_posts = dbcontext.Begeniler.Join(dbcontext.Gonderiler,
+                                     begeni => begeni.GonderiId,
+                                     post => post.GonderiId,
+                                     (begeni, post) => begeni)
+                                     .Where(begeni => begeni.begenenID == ogretmen.OgretmenId)
+                                     .Select(begeni => begeni.GonderiId).ToList();
+                ViewBag.begenilen_gonderiler = liked_posts;
             }
             ViewBag.dersId = dersId;
             return View(model);
@@ -88,9 +104,25 @@ namespace OgrenciDersPanosu.Areas.Ogretmen.Controllers
                 {
                     if(gonderi_yorum.UstGonderiID == gonderi.GonderiId)
                     {
+                        //beğenileri silme
+                        List<Begeni> likes = gonderi_yorum.begeniler.ToList();
+                        foreach (var begeni in likes)
+                        {
+                            gonderi_yorum.begeniler.Remove(begeni);
+                            dbcontext.Begeniler.Remove(begeni);
+                        }
+                        //yorumları silme
                         dbcontext.Gonderiler.Remove(gonderi_yorum);
                     }
                 }
+                //beğenileri silme
+                List<Begeni> begeniler = gonderi.begeniler.ToList();
+                foreach (var begeni in begeniler)
+                {
+                    gonderi.begeniler.Remove(begeni);
+                    dbcontext.Begeniler.Remove(begeni);
+                }
+                //gönderi silme
                 dbcontext.Gonderiler.Remove(gonderi);
                 dbcontext.SaveChanges();
             }
@@ -131,6 +163,55 @@ namespace OgrenciDersPanosu.Areas.Ogretmen.Controllers
                 ViewBag.currentUserId = ogretmen.OgretmenId;
             }
             ViewBag.dersId = dersId;
+            return RedirectToAction("Index", new { dersId = dersId });
+        }
+
+        [HttpPost]
+        public ActionResult Like(string dersId, string gonderiId)
+        {
+            Derslik_Gonderi gonderi = dbcontext.Gonderiler.Find(gonderiId);
+            if (gonderi != null)
+            {
+                Begeni begeni = new Begeni();
+                int id = 0;
+                if (dbcontext.Begeniler.Count() != 0)
+                {
+                    var son_begeni = dbcontext.Begeniler.OrderByDescending(w => w.zaman).First();  //id'ye göre son beğeniyi belirleme
+                    id = int.Parse(son_begeni.BegeniId) + 1;                               //id son beğeninin id sinin 1 fazlası olmalı
+                }
+                else
+                {
+                    id = 0;
+                }
+                begeni.BegeniId = id.ToString();
+                begeni.GonderiId = gonderiId;
+                OgretmenModel ogretmen = dbcontext.Ogretmenler.Find(User.Identity.Name);
+                begeni.begenenID = ogretmen.OgretmenId;
+                begeni.zaman = DateTime.Now;
+                dbcontext.Begeniler.Add(begeni);
+                gonderi.begeniSayisi++;
+                gonderi.begeniler.Add(begeni);
+                dbcontext.SaveChanges();
+            }
+            return RedirectToAction("Index", new { dersId = dersId });
+        }
+
+        [HttpPost]
+        public ActionResult Unlike(string dersId, string gonderiId)
+        {
+            Derslik_Gonderi gonderi = dbcontext.Gonderiler.Find(gonderiId);
+            if (gonderi != null)
+            {
+                OgretmenModel ogretmen = dbcontext.Ogretmenler.Find(User.Identity.Name);
+                Begeni begeni = dbcontext.Begeniler.Where(b => b.GonderiId == gonderiId && b.begenenID == ogretmen.OgretmenId).FirstOrDefault();
+                if (begeni != null)
+                {
+                    dbcontext.Begeniler.Remove(begeni);
+                    gonderi.begeniSayisi--;
+                    gonderi.begeniler.Remove(begeni);
+                    dbcontext.SaveChanges();
+                }
+            }
             return RedirectToAction("Index", new { dersId = dersId });
         }
 

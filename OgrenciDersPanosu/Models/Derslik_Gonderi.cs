@@ -16,7 +16,8 @@ namespace OgrenciDersPanosu.Models
         public string gonderenIsmi { get; set; }
         public string gonderenID { get; set; }
         public DateTime zaman { get; set; }
-
+        public int begeniSayisi { get; set; }
+        public virtual List<Begeni> begeniler { get; set; }
         public string dersId { get; set; }
         public Ders Ders { get; set; }
     }

@@ -52,6 +52,7 @@
                     gonderiler = ders.Gonderiler.ToList();
                     gonderiler = gonderiler.OrderByDescending(o => o.zaman).ToList();
                 }
+                List<string> liked_posts = ViewBag.begenilen_gonderiler as List<string>;
                 if (gonderiler != null)
                 {
                     foreach (var gonderi in gonderiler)
@@ -65,16 +66,33 @@
                                     <div class="row bottom_of_card">
                                         @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi.gonderenID))
                                         {
+                                            if (liked_posts.Contains(gonderi.GonderiId))
+                                            {
+                                                <button id="button_like_@gonderi.GonderiId" type="button" class="btn btn-sm col-md-1 btn-success" data-liked="true" data-liked-mode="true" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Like(this, 'button_like_@gonderi.GonderiId', 'Ogretmen', @gonderi.begeniSayisi)"><span class="fa fa-thumbs-up"></span> @gonderi.begeniSayisi</button>
+                                            }
+                                            else
+                                            {
+                                                <button id="button_like_@gonderi.GonderiId" type="button" class="btn btn-sm col-md-1 card_color" data-liked="false" data-liked-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Like(this, 'button_like_@gonderi.GonderiId', 'Ogretmen', @gonderi.begeniSayisi)"><span class="fa fa-thumbs-o-up"></span> @gonderi.begeniSayisi</button>
+                                            }
                                             <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi.GonderiId', 'deleteButton_@gonderi.GonderiId', 'Ogretmen')"><span class="fa fa-edit"></span> Güncelle</button>
                                             <button id="deleteButton_@gonderi.GonderiId" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
-                                            <div id="zaman" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                                            <div id="zaman" class="col-md-6 offset-1"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
                                         }
                                         else
                                         {
-                                            <div id="zaman" class="col-md-6 offset-6"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
+                                            if (liked_posts.Contains(gonderi.GonderiId))
+                                            {
+                                                <button id="button_like_@gonderi.GonderiId" type="button" class="btn btn-sm col-md-1 btn-success" data-liked="true" data-liked-mode="true" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Like(this, 'button_like_@gonderi.GonderiId', 'Ogretmen', @gonderi.begeniSayisi)"><span class="fa fa-thumbs-up"></span> @gonderi.begeniSayisi</button>
+                                            }
+                                            else
+                                            {
+                                                <button id="button_like_@gonderi.GonderiId" type="button" class="btn btn-sm col-md-1 card_color" data-liked="false" data-liked-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi.GonderiId onclick="Like(this, 'button_like_@gonderi.GonderiId', 'Ogretmen', @gonderi.begeniSayisi)"><span class="fa fa-thumbs-o-up"></span> @gonderi.begeniSayisi</button>
+                                            }
+                                            <div id="zaman" class="col-md-6 offset-5"><span class="fa fa-clock-o"></span> @gonderi.zaman</div>
                                         }
                                     </div>
 
+                                    <hr />
                                     <h6>Yorumlar</h6>
                                     @{
                                         var gonderiler_sirali = new List<OgrenciDersPanosu.Models.Derslik_Gonderi>();
@@ -90,13 +108,29 @@
                                                         <div class="row bottom_of_card">
                                                             @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi_yorum.gonderenID))
                                                             {
+                                                                if (liked_posts.Contains(gonderi_yorum.GonderiId))
+                                                                {
+                                                                    <button id="button_like_@gonderi_yorum.GonderiId" type="button" class="btn btn-sm col-md-1 btn-success" data-liked="true" data-liked-mode="true" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi_yorum.GonderiId onclick="Like(this, 'button_like_@gonderi_yorum.GonderiId', 'Ogretmen', @gonderi_yorum.begeniSayisi)"><span class="fa fa-thumbs-up"></span> @gonderi_yorum.begeniSayisi</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button id="button_like_@gonderi_yorum.GonderiId" type="button" class="btn btn-sm col-md-1 card_color" data-liked="false" data-liked-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi_yorum.GonderiId onclick="Like(this, 'button_like_@gonderi_yorum.GonderiId', 'Ogretmen', @gonderi_yorum.begeniSayisi)"><span class="fa fa-thumbs-o-up"></span> @gonderi_yorum.begeniSayisi</button>
+                                                                }
                                                                 <button type="button" class="btn btn-warning btn-sm col-md-2" data-edit-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi_yorum.GonderiId onclick="Edit(this, '#gonderi_text_@gonderi_yorum.GonderiId', 'deleteButton_@gonderi_yorum.GonderiId', 'Ogretmen')"><span class="fa fa-edit"></span> Güncelle</button>
                                                                 <button id="deleteButton_@gonderi_yorum.GonderiId" type="button" class="btn btn-danger btn-sm col-md-1" onclick="location.href='@Url.Action("Delete", "Derslik", new { dersId = ViewBag.dersId , gonderiId = gonderi_yorum.GonderiId })'"><span class="fa fa-remove"></span> Sil</button>
-                                                                <div id="comment_time" class="col-md-6 offset-3"><span class="fa fa-clock-o"></span> @gonderi_yorum.zaman</div>
+                                                                <div id="comment_time" class="col-md-6 offset-2"><span class="fa fa-clock-o"></span> @gonderi_yorum.zaman</div>
                                                             }
                                                             else
                                                             {
-                                                                <div id="comment_time" class="col-md-6 offset-6"><span class="fa fa-clock-o"></span> @gonderi_yorum.zaman</div>
+                                                                if (liked_posts.Contains(gonderi_yorum.GonderiId))
+                                                                {
+                                                                    <button id="button_like_@gonderi_yorum.GonderiId" type="button" class="btn btn-sm col-md-1 btn-success" data-liked="true" data-liked-mode="true" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi_yorum.GonderiId onclick="Like(this, 'button_like_@gonderi_yorum.GonderiId', 'Ogretmen', @gonderi_yorum.begeniSayisi)"><span class="fa fa-thumbs-up"></span> @gonderi_yorum.begeniSayisi</button>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <button id="button_like_@gonderi_yorum.GonderiId" type="button" class="btn btn-sm col-md-1 card_color" data-liked="false" data-liked-mode="false" data-ders-id=@ViewBag.dersId data-gonderi-id=@gonderi_yorum.GonderiId onclick="Like(this, 'button_like_@gonderi_yorum.GonderiId', 'Ogretmen', @gonderi_yorum.begeniSayisi)"><span class="fa fa-thumbs-o-up"></span> @gonderi_yorum.begeniSayisi</button>
+                                                                }
+                                                                <div id="comment_time" class="col-md-6 offset-5"><span class="fa fa-clock-o"></span> @gonderi_yorum.zaman</div>
                                                             }
                                                         </div>
                                                     </div>
@@ -138,3 +172,4 @@
 </script>
 
 <script src="~/Scripts/GonderiDuzenle.js"></script>
+<script src="~/Scripts/GonderiBegen.js"></script>
