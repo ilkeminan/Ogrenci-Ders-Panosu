@@ -61,7 +61,7 @@
                         {
                             <div class="card toppos card_color">
                                 <div class="card-body">
-                                    <h5 class="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</h5>
+                                    <a href="~/Home/Profil/@gonderi.gonderenID"><h5 class="kullaniciadi"><span class="fa fa-user"></span> @gonderi.gonderenIsmi</h5></a>
                                     <span id="gonderi_text_@gonderi.GonderiId" class="post" contenteditable="false">@gonderi.Gonderi</span>
                                     <div class="row bottom_of_card">
                                         @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi.gonderenID))
@@ -103,7 +103,7 @@
                                             {
                                                 <div class="card card_color">
                                                     <div class="card-body">
-                                                        <div class="card-title kullaniciadi"><span class="fa fa-user"></span> @gonderi_yorum.gonderenIsmi</div>
+                                                        <a href="~/Home/Profil/@gonderi_yorum.gonderenID"><div class="card-title kullaniciadi"><span class="fa fa-user"></span> @gonderi_yorum.gonderenIsmi</div></a>
                                                         <span id="gonderi_text_@gonderi_yorum.GonderiId" class="post" contenteditable="false">@gonderi_yorum.Gonderi</span>
                                                         <div class="row bottom_of_card">
                                                             @if (string.Equals(ViewBag.currentUserId.ToString(), gonderi_yorum.gonderenID))

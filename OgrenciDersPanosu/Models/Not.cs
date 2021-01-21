@@ -7,6 +7,7 @@ using System.Web;
 
 namespace OgrenciDersPanosu.Models
 {
+    [Table("Not")]
     public class Not
     {
 

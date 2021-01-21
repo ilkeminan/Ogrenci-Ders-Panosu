@@ -1,0 +1,44 @@
+﻿@model OgrenciDersPanosu.identity.ApplicationUser
+@{
+    ViewBag.Title = "Profil";
+    if (ViewBag.current_user_role != null && ViewBag.current_user_role.Equals("Ogrenci"))
+    {
+        Layout = "~/Areas/Ogrenci/Views/Shared/_Layout.cshtml";
+    }
+    else if (ViewBag.current_user_role != null && ViewBag.current_user_role.Equals("Ogretmen"))
+    {
+        Layout = "~/Areas/Ogretmen/Views/Shared/_Layout.cshtml";
+    }
+    else if (ViewBag.current_user_role != null && ViewBag.current_user_role.Equals("admin"))
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<link href="~/Content/Mudur.css" rel="stylesheet" type="text/css" />
+<div class="card">
+    @{
+        if (ViewBag.role.Equals("Ogrenci"))
+        {
+            <img src="~/Content/Images/classmates.png" alt="Avatar" style="width:100%">
+        }
+        else if (ViewBag.role.Equals("Ogretmen"))
+        {
+            <img src="~/Content/Images/teacher.png" alt="Avatar" style="width:100%">
+        }
+        else if (ViewBag.role.Equals("admin"))
+        {
+            <img src="~/Content/Images/boss.png" alt="Avatar" style="width:100%">
+        }
+    }
+    <div class="container">
+        <p><b>İsim: </b>@Model.Name</p>
+        <p><b>Soyisim: </b>@Model.Surname</p>
+        <p><b>Kullanıcı Adı: </b>@Model.UserName</p>
+        <p><b>Rol: </b>@ViewBag.role</p>
+    </div>
+</div>

@@ -306,5 +306,24 @@ namespace OgrenciDersPanosu.Controllers
         {
             return View();
         }
+
+        //Id'si verilen kullanıcının profilinin görüntülenmesini sağlar
+        public ActionResult Profil(string id)
+        {
+            var user = userManager.FindByName(id);
+            var role = userManager.GetRoles(user.Id);
+            ViewBag.role = role[0];
+            if(User.Identity.IsAuthenticated == true)
+            {
+                var current_user = userManager.FindByName(User.Identity.Name);
+                var current_user_role = userManager.GetRoles(current_user.Id);
+                ViewBag.current_user_role = current_user_role[0];
+            }
+            else
+            {
+                ViewBag.current_user_role = null;
+            }
+            return View(user);
+        }
     }
 }

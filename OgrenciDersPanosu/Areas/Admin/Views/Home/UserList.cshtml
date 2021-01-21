@@ -7,7 +7,7 @@
 <div class="tabloDiv">
     <table class="table table-striped">
         <tr>
-
+            <th>Kullanıcı adı</th>
             <th>İsim</th>
             <th>Soyisim</th>
             <th>Rol</th>
@@ -25,7 +25,7 @@
             foreach (var item in Model)
             {
                 <tr>
-
+                    <td><a href="~/Home/Profil/@item.user.UserName">@item.user.UserName</a></td>
                     <td>@item.user.Name</td>
                     <td>@item.user.Surname</td>
                     <td>@string.Join(", ", item.Roles.ToArray())</td>
@@ -34,4 +34,3 @@
         }
     </table>
 </div>
-
